@@ -1,8 +1,10 @@
 import pygame
+import paddle
 
 class Breakout:
 	def __init__(self):
 		pygame.init()
+		self.paddle = paddle.Paddle()
 		self.screen = pygame.display.set_mode((1280, 720))
 		self.clock = pygame.time.Clock()
 		self.running = True
@@ -14,7 +16,7 @@ class Breakout:
 				if event.type == pygame.QUIT:
 					self.running = False
 
-			self.screen.fill("white")
+			self.screen.fill("black")
 
 			pygame.display.flip()
 
