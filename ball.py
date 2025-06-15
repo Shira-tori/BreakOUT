@@ -27,11 +27,11 @@ class Ball:
         if(self.y < 15):
             self.y = 15
 
-    #TODO: FIX BUG WHEN HITTING THE SIDE OF PADDLE
     def checkIfBounce(self, paddle: paddle.Paddle):
-        if self.x >= self.width_of_screen-15 or self.x <= 15:
+        if self.x >= self.width_of_screen-self.size or self.x <= self.size:
             self.speed_x = -self.speed_x
-        if self.y >= self.height_of_screen-15 or self.y <= 15:
+        if self.y >= self.height_of_screen-self.size or self.y <= self.size:
             self.speed_y = -self.speed_y
-        if paddle.rect.collidepoint(self.x, self.y+self.size):
+        if paddle.rect.colliderect(self.rect):
+            self.y = paddle.rect.y - self.size
             self.speed_y = -self.speed_y

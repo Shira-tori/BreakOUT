@@ -43,7 +43,6 @@ class Breakout:
 
 
 def main():
-	print("Hello World!")
 	game = Breakout()
 	pygame.quit()
 
