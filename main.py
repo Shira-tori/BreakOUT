@@ -1,6 +1,7 @@
 import pygame
 import paddle
 import ball
+import walls
 
 class Breakout:
 	def __init__(self):
@@ -11,6 +12,7 @@ class Breakout:
 		self.ball_speed = 500
 		self.paddle = paddle.Paddle(self.WIDTH, self.HEIGHT)
 		self.ball = ball.Ball(self.WIDTH, self.HEIGHT, self.ball_speed)
+		self.walls = walls.Walls()
 		self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self.clock = pygame.time.Clock()
 		self.running = True
@@ -26,9 +28,10 @@ class Breakout:
 			self.screen.fill("black")
 			self.paddle.renderPaddle(self.screen)
 			self.ball.renderBall(self.screen)
+			self.walls.renderWalls(self.screen)
 
 			self.ball.moveBall(self.dt)
-			self.ball.checkIfBounce(self.paddle)
+			self.ball.checkIfBounce(self.paddle, self.walls)
 
 			keys = pygame.key.get_pressed()
 			if keys[pygame.K_LEFT]:
