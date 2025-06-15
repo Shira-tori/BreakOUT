@@ -7,11 +7,14 @@ class Breakout:
 		pygame.init()
 		self.HEIGHT = 720
 		self.WIDTH = 1280
+		self.paddle_speed = 500
+		self.ball_speed = 500
 		self.paddle = paddle.Paddle(self.WIDTH, self.HEIGHT)
-		self.ball = ball.Ball(self.WIDTH, self.HEIGHT)
+		self.ball = ball.Ball(self.WIDTH, self.HEIGHT, self.ball_speed)
 		self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self.clock = pygame.time.Clock()
 		self.running = True
+		self.dt = 0
 		self.gameLoop()
 
 	def gameLoop(self):
@@ -24,15 +27,19 @@ class Breakout:
 			self.paddle.renderPaddle(self.screen)
 			self.ball.renderBall(self.screen)
 
+			self.ball.moveBall(self.dt)
+			self.ball.checkIfBounce()
+
 			keys = pygame.key.get_pressed()
 			if keys[pygame.K_LEFT]:
-				pass
+				self.paddle.movePaddle(self.paddle_speed * -1 * self.dt)
 			if keys[pygame.K_RIGHT]:
-				pass
-
+				self.paddle.movePaddle(self.paddle_speed * self.dt)
+			
 			pygame.display.flip()
 			
-			self.clock.tick(60)
+			self.dt = self.clock.tick(60) / 1000
+
 
 
 def main():
