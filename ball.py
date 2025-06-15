@@ -13,7 +13,7 @@ class Ball:
         self.height_of_screen = HEIGHT
         self.speed_x = speed
         self.speed_y = speed
-        self.rect = pygame.Rect(self.x/2, self.x/2, self.size, self.size)
+        self.rect = pygame.Rect(self.x, self.y, self.size, self.size)
 
     def renderBall(self, screen: pygame.Surface):
         self.rect = pygame.draw.circle(screen, "white", (self.x, self.y), self.size)
