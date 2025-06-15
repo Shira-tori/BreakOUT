@@ -28,7 +28,7 @@ class Breakout:
 			self.ball.renderBall(self.screen)
 
 			self.ball.moveBall(self.dt)
-			self.ball.checkIfBounce()
+			self.ball.checkIfBounce(self.paddle)
 
 			keys = pygame.key.get_pressed()
 			if keys[pygame.K_LEFT]:

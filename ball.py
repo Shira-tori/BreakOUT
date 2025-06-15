@@ -1,4 +1,5 @@
 import pygame
+import paddle
 
 class Ball:
     def __init__(self, WIDTH: int, HEIGHT: int, speed: int):
@@ -26,8 +27,11 @@ class Ball:
         if(self.y < 15):
             self.y = 15
 
-    def checkIfBounce(self):
+    #TODO: FIX BUG WHEN HITTING THE SIDE OF PADDLE
+    def checkIfBounce(self, paddle: paddle.Paddle):
         if self.x >= self.width_of_screen-15 or self.x <= 15:
             self.speed_x = -self.speed_x
         if self.y >= self.height_of_screen-15 or self.y <= 15:
+            self.speed_y = -self.speed_y
+        if paddle.rect.collidepoint(self.x, self.y+self.size):
             self.speed_y = -self.speed_y
