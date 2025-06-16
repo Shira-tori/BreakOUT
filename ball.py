@@ -2,6 +2,7 @@ import pygame
 import paddle
 import walls
 import random
+import brick
 
 class Ball:
     def __init__(self, WIDTH: int, HEIGHT: int, speed: int):
@@ -30,16 +31,24 @@ class Ball:
         if(self.y < self.size):
             self.y = self.size
 
-    def checkIfBounce(self, paddle: paddle.Paddle, walls: walls.Walls):
+    def checkIfBounce(self, paddle: paddle.Paddle, walls: walls.Walls, bricks: list[brick.Brick]):
         if self.y >= self.height_of_screen-self.size or self.y <= self.size:
             self.speed_y = -self.speed_y
         if paddle.rect.colliderect(self.rect):
             self.y = paddle.rect.y - self.size
             self.speed_y = -self.speed_y
-            self.speed_x = random.randrange(-500, 500, 100)
+            self.speed_x = random.randrange(-10, 10, 1)
         if self.rect.colliderect(walls.left_wall_rect):
             self.x = 300 + (self.size * 2)
             self.speed_x = -self.speed_x
         if self.rect.colliderect(walls.right_wall_rect):
             self.x = 980 - self.size
             self.speed_x = -self.speed_x
+        for bric in bricks:
+            if self.rect.colliderect(bric.rect):
+                if(self.y < bric.rect.y):
+                    self.y = (bric.rect.y - bric.height) - self.size
+                if(self.y > bric.rect.y):
+                    self.y = (bric.rect.y + bric.height) + self.size
+                self.speed_y = -self.speed_y
+

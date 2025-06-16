@@ -9,8 +9,8 @@ class Breakout:
 		pygame.init()
 		self.HEIGHT = 720
 		self.WIDTH = 1280
-		self.paddle_speed = 500
-		self.ball_speed = 500
+		self.paddle_speed = 10
+		self.ball_speed = 10
 		self.paddle = paddle.Paddle(self.WIDTH, self.HEIGHT)
 		self.ball = ball.Ball(self.WIDTH, self.HEIGHT, self.ball_speed)
 		self.walls = walls.Walls()
@@ -46,7 +46,7 @@ class Breakout:
 			self.renderBricks()
 
 			self.ball.moveBall(self.dt)
-			self.ball.checkIfBounce(self.paddle, self.walls)
+			self.ball.checkIfBounce(self.paddle, self.walls, self.bricks)
 
 			keys = pygame.key.get_pressed()
 			if keys[pygame.K_LEFT]:
@@ -56,7 +56,7 @@ class Breakout:
 			
 			pygame.display.flip()
 			
-			self.dt = self.clock.tick(60) / 1000
+			self.dt = self.clock.tick(60) / 10
 
 
 
